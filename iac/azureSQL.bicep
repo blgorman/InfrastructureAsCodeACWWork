@@ -23,6 +23,7 @@ var sqlDBServerName = '${sqlServerName}${uniqueIdentifier}'
 var dbSKU = 'Basic'
 var dbCapacity = 5
 
+//server
 resource sqlServer 'Microsoft.Sql/servers@2022-05-01-preview' = {
   name: sqlDBServerName
   location: location
@@ -35,11 +36,17 @@ resource sqlServer 'Microsoft.Sql/servers@2022-05-01-preview' = {
   }
 }
 
+//allow Azure services to access the server
 resource sqlServerFirewallRule 'Microsoft.Sql/servers/firewallRules@2022-05-01-preview' = {
   parent: sqlServer
   name: 'AllowAllWindowsAzureIps'
+  properties: {
+    startIpAddress: '0.0.0.0'
+    endIpAddress: '0.0.0.0'
+  }
 }
 
+//database
 resource sqlDB 'Microsoft.Sql/servers/databases@2022-05-01-preview' = {
   parent: sqlServer
   name: sqlDatabaseName
