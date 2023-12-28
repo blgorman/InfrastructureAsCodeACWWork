@@ -1,5 +1,4 @@
-```yaml
-name: "Bicep Deploy Resources"
+name: "Terraform Deploy Resources"
 
 on:
   push:
@@ -11,9 +10,9 @@ env:
   AZURE_TENANT_ID:  ${{ secrets.AZURE_TENANT_ID }}
   AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
   AZURE_CLIENT_ID_CONTACTWEB_DEV: '${{ secrets.AZURE_CLIENT_ID_CONTACTWEB_DEV }}'
-  TEMPLATE: 'iac/main.bicep'
-  PARAMETERS: 'iac/main.parameters.json'  
-  DEPLOYMENT_NAME: 'BicepDeployResources'
+  TEMPLATE: 'iac/main.tf'
+  PARAMETERS: 'iac/main.tfvars'  
+  DEPLOYMENT_NAME: 'TerraformDeployResources'
   REGION: 'eastus'
   
 permissions:
@@ -38,14 +37,8 @@ jobs:
           tenant-id: ${{ env.AZURE_TENANT_ID }}
           subscription-id: ${{ env.AZURE_SUBSCRIPTION_ID }}
 
-      - name: Deploy Resources
-        uses: Azure/arm-deploy@v1.0.9
-        with:
-          scope: subscription
-          subscriptionId: ${{ env.AZURE_SUBSCRIPTION_ID }}
-          region: ${{ env.REGION }}
-          template: '${{ env.TEMPLATE }}'
-          parameters: '${{ env.PARAMETERS }}'
-          deploymentName: '${{env.DEPLOYMENT_NAME}}-${{github.run_number}}'
-          failOnStdErr: true
-```
+      - name: Terraform Stuff Goes here
+      - shell: bash 
+        run: |
+          echo "Terraform stuff goes here for deploying with TF" 
+
