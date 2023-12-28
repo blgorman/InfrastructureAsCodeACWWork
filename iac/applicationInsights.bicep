@@ -1,5 +1,5 @@
-param appInsightsName string
 param location string
+param appInsightsName string
 param logAnalyticsWorkspaceId string
 
 resource applicationInsights 'Microsoft.Insights/components@2020-02-02' = {
