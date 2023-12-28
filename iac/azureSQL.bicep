@@ -19,11 +19,13 @@ param sqlServerAdminLogin string
 @secure()
 param sqlServerAdminPassword string
 
+@description('Your Client IP Address to allow access to the SQL Server')
+param clientIPAddress string
+
 var sqlDBServerName = '${sqlServerName}${uniqueIdentifier}'
 var dbSKU = 'Basic'
 var dbCapacity = 5
 
-//server
 resource sqlServer 'Microsoft.Sql/servers@2022-05-01-preview' = {
   name: sqlDBServerName
   location: location
@@ -36,8 +38,7 @@ resource sqlServer 'Microsoft.Sql/servers@2022-05-01-preview' = {
   }
 }
 
-//allow Azure services to access the server
-resource sqlServerFirewallRule 'Microsoft.Sql/servers/firewallRules@2022-05-01-preview' = {
+resource sqlServerFirewallRuleAllAzureServices 'Microsoft.Sql/servers/firewallRules@2022-05-01-preview' = {
   parent: sqlServer
   name: 'AllowAllWindowsAzureIps'
   properties: {
@@ -46,7 +47,15 @@ resource sqlServerFirewallRule 'Microsoft.Sql/servers/firewallRules@2022-05-01-p
   }
 }
 
-//database
+resource sqlServerFirewallRuleClientIP 'Microsoft.Sql/servers/firewallRules@2022-05-01-preview' = {
+  parent: sqlServer
+  name: 'MyIPCanAccessServer'
+  properties: {
+    startIpAddress: clientIPAddress
+    endIpAddress: clientIPAddress
+  }
+}
+
 resource sqlDB 'Microsoft.Sql/servers/databases@2022-05-01-preview' = {
   parent: sqlServer
   name: sqlDatabaseName

@@ -19,6 +19,9 @@
         },
         "sqlServerAdminPassword": {
             "value": "workshopDbPwd#54321!"
+        },
+        "clientIPAddress": {
+            "value": "10.10.10.10"
         }
     }
 }

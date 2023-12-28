@@ -13,6 +13,7 @@ param sqlDatabaseName string
 param sqlServerAdminLogin string
 @secure()
 param sqlServerAdminPassword string
+param clientIPAddress string
 
 resource contactWebResourceGroup 'Microsoft.Resources/resourceGroups@2018-05-01' = {
   name: rgName
@@ -29,5 +30,6 @@ module contactWebDatabase 'azureSQL.bicep' = {
     sqlDatabaseName: sqlDatabaseName
     sqlServerAdminLogin: sqlServerAdminLogin
     sqlServerAdminPassword: sqlServerAdminPassword
+    clientIPAddress: clientIPAddress
   }
 }
