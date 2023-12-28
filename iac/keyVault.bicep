@@ -11,7 +11,7 @@ param keyVaultName string
 param webAppFullName string
 param databaseServerName string
 
-var vaultName = '${keyVaultName}-${uniqueIdentifier}'
+var vaultName = '${keyVaultName}${uniqueIdentifier}'
 var skuName = 'standard'
 var softDeleteRetentionInDays = 7
 
