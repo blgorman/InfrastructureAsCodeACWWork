@@ -35,6 +35,11 @@ resource sqlServer 'Microsoft.Sql/servers@2022-05-01-preview' = {
   }
 }
 
+resource sqlServerFirewallRule 'Microsoft.Sql/servers/firewallRules@2022-05-01-preview' = {
+  parent: sqlServer
+  name: 'AllowAllWindowsAzureIps'
+}
+
 resource sqlDB 'Microsoft.Sql/servers/databases@2022-05-01-preview' = {
   parent: sqlServer
   name: sqlDatabaseName
