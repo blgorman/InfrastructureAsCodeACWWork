@@ -3,22 +3,19 @@ name: "Terraform Deploy Resources"
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
   workflow_dispatch:
 
 env: 
+  ARM_CLIENT_ID: "${{ secrets.AZURE_CLIENT_ID_CONTACTWEB_DEV }}"
+  ARM_SUBSCRIPTION_ID: "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
+  ARM_TENANT_ID: "${{ secrets.AZURE_TENANT_ID }}"
   CURRENT_BRANCH: ${{ github.head_ref || github.ref_name }} 
-  AZURE_TENANT_ID:  ${{ secrets.AZURE_TENANT_ID }}
-  AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-  AZURE_CLIENT_ID_CONTACTWEB_DEV: '${{ secrets.AZURE_CLIENT_ID_CONTACTWEB_DEV }}'
   DEPLOYMENT_NAME: 'TerraformDeployResources'
   REGION: 'eastus'
   
 permissions:
   id-token: write
   contents: read
-  pull-requests: write
 
 jobs:
   terraform-plan:
@@ -54,6 +51,7 @@ jobs:
     # An exit code of 0 indicated no changes, 1 a terraform failure, 2 there are pending changes.
     - name: Terraform Plan
       id: tf-plan
+      working-directory: ${{ github.workspace }}/iac
       run: |
         export exitcode=0
         terraform plan -detailed-exitcode -no-color -out tfplan || export exitcode=$?
@@ -98,23 +96,6 @@ jobs:
       run: |
         echo "$SUMMARY" >> $GITHUB_STEP_SUMMARY
       
-    # If this is a PR post the changes
-    - name: Push Terraform Output to PR
-      if: github.ref != 'refs/heads/main'
-      uses: actions/github-script@v6
-      env:
-        SUMMARY: "${{ steps.tf-plan-string.outputs.summary }}"
-      with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const body = `${process.env.SUMMARY}`;
-            github.rest.issues.createComment({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body: body
-            })
-                
   terraform-apply:
     name: 'Terraform Apply'
     if: github.ref == 'refs/heads/main' && needs.terraform-plan.outputs.tfplanExitCode == 2
@@ -134,6 +115,7 @@ jobs:
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
       run: terraform init
+      working-directory: ${{ github.workspace }}/iac
 
     # Download saved plan from artifacts  
     - name: Download Terraform Plan
@@ -144,3 +126,4 @@ jobs:
     # Terraform Apply
     - name: Terraform Apply
       run: terraform apply -auto-approve tfplan
+      working-directory: ${{ github.workspace }}/iac
