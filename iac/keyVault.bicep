@@ -59,7 +59,7 @@ resource identityDBConnectionSecret 'Microsoft.KeyVault/vaults/secrets@2022-11-0
   name: 'IdentityDbConnectionSecret'
   parent: keyVault
   properties: {
-    value: listKeys(databaseServer.id, '2017-10-01').keys[0].connectionString
+    value: listKeys(databaseServer.id, '2023-05-01-preview').keys[0].connectionString
   }
 }
 
@@ -67,7 +67,7 @@ resource contactManagerDBConnectionSecret 'Microsoft.KeyVault/vaults/secrets@202
   name: 'ContactManagerDbConnectionSecret'
   parent: keyVault
   properties: {
-    value: listKeys(databaseServer.id, '2017-10-01').keys[0].connectionString
+    value: listKeys(databaseServer.id, '2023-05-01-preview').keys[0].connectionString
   }
 }
 
