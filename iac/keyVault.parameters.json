@@ -16,6 +16,12 @@
         },
         "webAppName": {
             "value": "ContactWeb-20291231acw"
+        },
+        "sqlDatabaseName": {
+            "value": "ContactWebDB"
+        },
+        "sqlServerAdminPassword": {
+            "value": "workshopDbPwd#54321!"
         }
     }
 }

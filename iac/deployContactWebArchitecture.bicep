@@ -84,6 +84,8 @@ module contactWebVault 'keyVault.bicep' = {
     webAppFullName: contactWebApplicationPlanAndSite.outputs.webAppFullName
     databaseServerName: contactWebDatabase.outputs.sqlServerName
     keyVaultName: keyVaultName
+    sqlDatabaseName: sqlDatabaseName
+    sqlServerAdminPassword: sqlServerAdminPassword
   }
 }
 
