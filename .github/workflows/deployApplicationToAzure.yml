@@ -3,7 +3,7 @@ name: Build and deploy ContactWeb
 on:
   push:
     branches:
-      - main
+      - nowayjose
   workflow_dispatch:
 
 env:
