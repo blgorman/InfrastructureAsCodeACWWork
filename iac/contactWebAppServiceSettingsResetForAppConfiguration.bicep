@@ -16,10 +16,9 @@ resource appInsights 'Microsoft.Insights/components@2020-02-02-preview' existing
 module resetAppConfigurationSettings 'contactWebAppServiceSettingsMerge.bicep' = {
   name: 'webAppSettings-${webAppName}'
   params: {
-    currentAppSettings: {}
+    currentAppSettings: { '${applicationInsightsConnectionStringKey}': appInsights.properties.ConnectionString }
     appSettings: {
       '${appConfigurationEndpointKey}' : appConfigurationEndpointValue
-      '${applicationInsightsConnectionStringKey}': appInsights.properties.ConnectionString
     }
     webAppName: webApp.name
   }

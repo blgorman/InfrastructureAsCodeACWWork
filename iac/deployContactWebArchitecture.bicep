@@ -139,5 +139,7 @@ module resetContactWebAppSettingsForAppConfiguration 'contactWebAppServiceSettin
     webAppName: contactWebApplicationPlanAndSite.outputs.webAppFullName
     appConfigurationEndpointKey: appConfigurationEndpointKey
     appConfigurationEndpointValue: orgAppConfiguration.outputs.appConfigStoreEndpoint
+    applicationInsightsConnectionStringKey: appInsightsConnectionStringKey
+    applicationInsightsName: contactWebApplicationInsights.outputs.applicationInsightsName
   }
 }
