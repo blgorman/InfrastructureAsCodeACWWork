@@ -1,17 +1,16 @@
 param location string 
+@minLength(11)
+@maxLength(11)
 param uniqueIdentifier string 
+@minLength(5)
+@maxLength(12)
 param appConfigStoreName string 
-param vaultFullName string
 param identityDBConnectionStringKey string
 param managerDBConnectionStringKey string 
 param identityDbSecretURI string
 param managerDbSecretURI string
 
 var configName = '${appConfigStoreName}-${uniqueIdentifier}'
-
-resource vault 'Microsoft.KeyVault/vaults@2022-07-01' existing = {
-  name: vaultFullName
-}
 
 resource appConfig 'Microsoft.AppConfiguration/configurationStores@2023-03-01' = {
   name: configName

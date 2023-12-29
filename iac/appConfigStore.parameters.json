@@ -11,9 +11,6 @@
         "appConfigStoreName": {
             "value": "orgAppConfig"
         },
-        "vaultFullName": {
-            "value": "passedinfrommain"
-        },
         "identityDBConnectionStringKey": {
             "value": "passedinfrommain"
         },

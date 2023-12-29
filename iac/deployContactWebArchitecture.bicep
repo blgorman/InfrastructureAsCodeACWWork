@@ -27,6 +27,8 @@ param appInsightsConnectionStringKey string
 
 param keyVaultName string
 
+@minLength(5)
+@maxLength(12)
 param appConfigStoreName string
 
 resource contactWebResourceGroup 'Microsoft.Resources/resourceGroups@2018-05-01' = {
@@ -115,7 +117,6 @@ module orgAppConfiguration 'appConfigStore.bicep' = {
   params: {
     location: contactWebResourceGroup.location
     uniqueIdentifier: uniqueIdentifier
-    vaultFullName: contactWebVault.outputs.keyVaultName
     appConfigStoreName: appConfigStoreName
     identityDBConnectionStringKey: identityDBConnectionStringKey
     managerDBConnectionStringKey: managerDBConnectionStringKey
