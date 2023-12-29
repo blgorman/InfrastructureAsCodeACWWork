@@ -65,15 +65,16 @@ resource managerDBConnectionKeyValuePair 'Microsoft.AppConfiguration/configurati
   }
 }
 
-// resource roleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-//   scope: appConfig
-//   name: guid(appConfig.id, webApp.id, appDataReaderRole.id)
-//   properties: {
-//     roleDefinitionId: appDataReaderRole.id
-//     principalId: webApp.identity.principalId
-//     principalType: 'User'
-//   }
-// }
+resource roleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  scope: appConfig
+  name: guid(appConfig.id, webApp.id, appDataReaderRole.id)
+  properties: {
+    roleDefinitionId: appDataReaderRole.id
+    principalType: 'ServicePrincipal'
+    delegatedManagedIdentityResourceId: webApp.id
+    principalId: webApp.identity.principalId
+  }
+}
 
 output appConfigStoreName string = appConfig.name
 output appConfigStoreEndpoint string = appConfig.properties.endpoint
