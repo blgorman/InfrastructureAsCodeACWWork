@@ -10,7 +10,7 @@ param managerDBConnectionStringKey string
 param identityDbSecretURI string
 param managerDbSecretURI string
 param keyVaultUserManagedIdentityName string
-//param webAppName string
+param webAppName string
 param roleDefinitionName string
 
 var configName = '${appConfigStoreName}-${uniqueIdentifier}'
@@ -19,9 +19,9 @@ resource appDataReaderRole 'Microsoft.Authorization/roleDefinitions@2022-05-01-p
   name: roleDefinitionName
 }
 
-// resource webApp 'Microsoft.Web/sites@2023-01-01' existing = {
-//   name: webAppName
-// }
+resource webApp 'Microsoft.Web/sites@2023-01-01' existing = {
+  name: webAppName
+}
 
 resource keyVaultUser 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' existing = {
   name: keyVaultUserManagedIdentityName
@@ -65,26 +65,14 @@ resource managerDBConnectionKeyValuePair 'Microsoft.AppConfiguration/configurati
   }
 }
 
-// resource roleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-//   name: 'exampleRoleAssignment'
-//   properties: {
-//     principalId: webApp.identity.principalId
-//     roleDefinitionId: appDataReaderRole.id
-//     principalType: 'ServicePrincipal'
-//   }
-// }
-
-
-// resource roleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-//   scope: appConfig
-//   name: guid(appConfig.id, webApp.id, appDataReaderRole.id)
-//   properties: {
-//     roleDefinitionId: appDataReaderRole.id
-//     principalType: 'ServicePrincipal'
-//     delegatedManagedIdentityResourceId: webApp.id
-//     principalId: webApp.identity.principalId
-//   }
-// }
+resource roleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  name: 'exampleRoleAssignment'
+  properties: {
+    principalId: webApp.identity.principalId
+    roleDefinitionId: appDataReaderRole.id
+    principalType: 'ServicePrincipal'
+  }
+}
 
 output appConfigStoreName string = appConfig.name
 output appConfigStoreEndpoint string = appConfig.properties.endpoint
