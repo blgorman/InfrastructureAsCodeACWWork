@@ -10,8 +10,18 @@ param managerDBConnectionStringKey string
 param identityDbSecretURI string
 param managerDbSecretURI string
 param keyVaultUserManagedIdentityName string
+param webAppName string
+param roleDefinitionName string
 
 var configName = '${appConfigStoreName}-${uniqueIdentifier}'
+
+resource appDataReaderRole 'Microsoft.Authorization/roleDefinitions@2022-05-01-preview' existing = {
+  name: roleDefinitionName
+}
+
+resource webApp 'Microsoft.Web/sites@2023-01-01' existing = {
+  name: webAppName
+}
 
 resource keyVaultUser 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' existing = {
   name: keyVaultUserManagedIdentityName
@@ -52,6 +62,16 @@ resource managerDBConnectionKeyValuePair 'Microsoft.AppConfiguration/configurati
   properties: {
     contentType: 'application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8'
     value: string('${managerDbSecretURI}')
+  }
+}
+
+resource roleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  scope: appConfig
+  name: guid(appConfig.id, webApp.id, appDataReaderRole.id)
+  properties: {
+    roleDefinitionId: appDataReaderRole.id
+    principalId: webApp.identity.principalId
+    principalType: 'ServicePrincipal'
   }
 }
 

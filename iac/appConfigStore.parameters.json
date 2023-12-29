@@ -22,6 +22,12 @@
         },
         "managerDbSecretURI" : {
             "value": "passedinfrommain"
+        },
+        "webAppName" : {
+            "value": "passedinfrommain"
+        },
+        "roleDefinitionName" : {
+            "value": "App Configuration Data Reader"
         }
     }
 }

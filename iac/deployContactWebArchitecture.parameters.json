@@ -62,6 +62,9 @@
         "appConfigStoreName": {
             "value": "orgAppConfig"
         },
+        "appDataReaderRoleDefinitionName": {
+            "value": "App Configuration Data Reader"
+        },
         "appConfigurationEndpointKey": { 
             "value": "AzureAppConfigConnection"
         }
