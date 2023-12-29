@@ -20,6 +20,8 @@ resource appDataReaderRole 'Microsoft.Authorization/roleDefinitions@2022-05-01-p
   name: roleDefinitionName
 }
 
+var appDataReaderRoleId = '516239f1-63e1-4d78-a4de-a74fb236a071'
+
 resource webApp 'Microsoft.Web/sites@2023-01-01' existing = {
   name: webAppName
 }
@@ -71,7 +73,7 @@ resource roleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   scope: appConfig
   properties: {
     principalId: webApp.identity.principalId
-    roleDefinitionId: appDataReaderRole.id
+    roleDefinitionId: appDataReaderRoleId
     principalType: 'ServicePrincipal'
   }
 }
