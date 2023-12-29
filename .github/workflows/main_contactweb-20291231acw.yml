@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy ASP.Net Core app to Azure Web App - ContactWeb-20291231acw
+name: Build and deploy ContactWeb
 
 on:
   push:
@@ -9,49 +9,46 @@ on:
       - main
   workflow_dispatch:
 
-jobs:
-  build:
-    runs-on: windows-latest
+env:
+  AZURE_APP_PACKAGE_PATH: '.' 
+  # set this to the dotnet version to use
+  DOTNET_VERSION: '6.0.x' 
+  # Put your app name here
+  AZURE_WEB_APP_NAME: 'ContactWeb-20291231acw' 
+  # staging by default but you could change to Production if you are not creating a slot 
+  AZURE_WEB_APP_SLOT: 'Production' 
+  #Make sure you create a secret with the publish profile named exactly as below
+  AZURE_PUBLISH_PROFILE_SECRET: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B53B45EF7553410AA5A68B4FF0946B2A }}
+  #Working Directory
+  WORKING_DIRECTORY: 'src/ContactWebEFCore6' 
 
+jobs:  
+  build:
+    runs-on: ubuntu-latest
+    
     steps:
+
       - uses: actions/checkout@v4
 
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '6.0.x'
+          dotnet-version: '${{ env.DOTNET_VERSION }}'
           include-prerelease: true
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
-
+        working-directory: '${{ env.WORKING_DIRECTORY }}'
+        
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        working-directory: '${{ env.WORKING_DIRECTORY }}'
 
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v3
-        with:
-          name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
-
-  deploy:
-    runs-on: windows-latest
-    needs: build
-    environment:
-      name: 'Production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-    
-    steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v3
-        with:
-          name: .net-app
-      
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'ContactWeb-20291231acw'
-          slot-name: 'Production'
-          package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B53B45EF7553410AA5A68B4FF0946B2A }}
+          app-name: '${{ env.AZURE_WEB_APP_NAME }}'
+          slot-name: '${{ env.AZURE_WEB_APP_SLOT }}}}'
+          package: ${{ env.APP_PACKAGE_PATH }}
+          publish-profile: ${{ env.AZURE_PUBLISH_PROFILE_SECRET }}
