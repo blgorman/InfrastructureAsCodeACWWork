@@ -54,7 +54,7 @@
             "value": "KV-ContactWeb"
         },
         "keyVaultUserManagedIdentityName": {
-            "value": ""
+            "value": "GetSecretsOnlyIdentity"
         },
         "appConfigStoreName": {
             "value": "orgAppConfig"

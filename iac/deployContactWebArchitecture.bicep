@@ -27,6 +27,7 @@ param appInsightsConnectionStringKey string
 
 param keyVaultName string
 param keyVaultUserManagedIdentityName string
+var keyVaultUMIFullName = '${keyVaultName}-${keyVaultUserManagedIdentityName}'
 
 @minLength(5)
 @maxLength(12)
@@ -124,5 +125,6 @@ module orgAppConfiguration 'appConfigStore.bicep' = {
     managerDBConnectionStringKey: managerDBConnectionStringKey
     identityDbSecretURI: contactWebVault.outputs.identityDBConnectionSecretURI
     managerDbSecretURI: contactWebVault.outputs.managerDBConnectionSecretURI
+    keyVaultUserManagedIdentityName: keyVaultUMIFullName
   }
 }
