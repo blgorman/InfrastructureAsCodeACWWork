@@ -10,11 +10,11 @@ param managerDBConnectionStringKey string
 param identityDbSecretURI string
 param managerDbSecretURI string
 param keyVaultUserManagedIdentityName string
-param webAppName string
+//param webAppName string
 param roleDefinitionName string
 
 var configName = '${appConfigStoreName}-${uniqueIdentifier}'
-var webAppName2 = '${webAppName}-${uniqueIdentifier}'
+
 resource appDataReaderRole 'Microsoft.Authorization/roleDefinitions@2022-05-01-preview' existing = {
   name: roleDefinitionName
 }

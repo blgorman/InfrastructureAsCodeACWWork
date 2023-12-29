@@ -130,7 +130,7 @@ module orgAppConfiguration 'appConfigStore.bicep' = {
     identityDbSecretURI: contactWebVault.outputs.identityDBConnectionSecretURI
     managerDbSecretURI: contactWebVault.outputs.managerDBConnectionSecretURI
     keyVaultUserManagedIdentityName: contactWebVault.outputs.keyVaultUserManagedIdentityName
-    webAppName: contactWebApplicationPlanAndSite.outputs.webAppFullName
+    //webAppName: contactWebApplicationPlanAndSite.outputs.webAppFullName
     roleDefinitionName: appDataReaderRoleDefinitionName
   }
 }
