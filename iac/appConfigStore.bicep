@@ -33,8 +33,8 @@ resource identityDBConnectionKeyValuePair 'Microsoft.AppConfiguration/configurat
   name: identityDBConnectionStringKey
   parent: appConfig
   properties: {
-    contentType: 'vaultSecretReference'
-      value: '@Microsoft.KeyVault(SecretUri=${identityDbSecretURI})'
+    contentType: 'application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8'
+    value: string('${identityDbSecretURI}')
   }
 }
 
@@ -42,8 +42,8 @@ resource managerDBConnectionKeyValuePair 'Microsoft.AppConfiguration/configurati
   name: managerDBConnectionStringKey
   parent: appConfig
   properties: {
-    contentType: 'vaultSecretReference'
-      value: '@Microsoft.KeyVault(SecretUri=${managerDbSecretURI})'
+    contentType: 'application/vnd.microsoft.appconfig.keyvaultref+json;charset=utf-8'
+    value: string('${managerDbSecretURI}')
   }
 }
 
