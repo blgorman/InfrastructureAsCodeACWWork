@@ -27,6 +27,7 @@ param appInsightsConnectionStringKey string
 
 param keyVaultName string
 param keyVaultUserManagedIdentityName string
+param developersGroupObjectId string
 var keyVaultUMIFullName = '${keyVaultName}-${keyVaultUserManagedIdentityName}'
 
 @minLength(5)
@@ -98,6 +99,7 @@ module contactWebVault 'keyVault.bicep' = {
     keyVaultName: keyVaultName
     sqlDatabaseName: sqlDatabaseName
     sqlServerAdminPassword: sqlServerAdminPassword
+    developersGroupObjectId: developersGroupObjectId
     keyVaultUserManagedIdentityName: keyVaultUMIFullName
   }
 }
