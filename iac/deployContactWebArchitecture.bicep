@@ -33,6 +33,7 @@ var keyVaultUMIFullName = '${keyVaultName}-${keyVaultUserManagedIdentityName}'
 @minLength(5)
 @maxLength(12)
 param appConfigStoreName string
+param appConfigurationEndpointKey string
 
 resource contactWebResourceGroup 'Microsoft.Resources/resourceGroups@2018-05-01' = {
   name: rgName
@@ -128,5 +129,15 @@ module orgAppConfiguration 'appConfigStore.bicep' = {
     identityDbSecretURI: contactWebVault.outputs.identityDBConnectionSecretURI
     managerDbSecretURI: contactWebVault.outputs.managerDBConnectionSecretURI
     keyVaultUserManagedIdentityName: contactWebVault.outputs.keyVaultUserManagedIdentityName
+  }
+}
+
+module resetContactWebAppSettingsForAppConfiguration 'contactWebAppServiceSettingsResetForAppConfiguration.bicep' = {
+  name: '${webAppName}-resettingAppSettingsForAppConfiguration'
+  scope: contactWebResourceGroup
+  params: {
+    webAppName: contactWebApplicationPlanAndSite.outputs.webAppFullName
+    appConfigurationEndpointKey: appConfigurationEndpointKey
+    appConfigurationEndpointValue: orgAppConfiguration.outputs.appConfigStoreEndpoint
   }
 }

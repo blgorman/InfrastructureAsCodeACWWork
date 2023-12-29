@@ -56,4 +56,4 @@ resource managerDBConnectionKeyValuePair 'Microsoft.AppConfiguration/configurati
 }
 
 output appConfigStoreName string = appConfig.name
-output kvUserAssignedIdentityId string = keyVaultUser.id
+output appConfigStoreEndpoint string = appConfig.properties.endpoint
