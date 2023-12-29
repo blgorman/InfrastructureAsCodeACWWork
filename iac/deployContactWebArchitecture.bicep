@@ -21,6 +21,9 @@ param appInsightsName string
 param webAppName string
 param appServicePlanName string
 param appServicePlanSku string
+param identityDBConnectionStringKey string
+param managerDBConnectionStringKey string
+param appInsightsConnectionStringKey string
 
 param keyVaultName string
 
@@ -72,6 +75,9 @@ module contactWebApplicationPlanAndSite 'contactWebAppService.bicep' = {
     appServicePlanName: appServicePlanName
     appServicePlanSku: appServicePlanSku
     webAppName: webAppName
+    identityDBConnectionStringKey: identityDBConnectionStringKey
+    managerDBConnectionStringKey: managerDBConnectionStringKey
+    appInsightsConnectionStringKey: appInsightsConnectionStringKey
   }
 }
 
