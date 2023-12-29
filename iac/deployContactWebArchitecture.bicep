@@ -102,5 +102,7 @@ module updateContactWebAppSettings 'contactWebAppServiceSettingsUpdate.bicep' = 
     webAppName: contactWebApplicationPlanAndSite.outputs.webAppFullName
     defaultDBSecretURI: contactWebVault.outputs.identityDBConnectionSecretURI
     managerDBSecretURI: contactWebVault.outputs.managerDBConnectionSecretURI
+    identityDBConnectionStringKey: identityDBConnectionStringKey
+    managerDBConnectionStringKey: managerDBConnectionStringKey
   }
 }
