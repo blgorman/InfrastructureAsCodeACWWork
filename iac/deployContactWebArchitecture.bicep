@@ -89,3 +89,12 @@ module contactWebVault 'keyVault.bicep' = {
   }
 }
 
+module updateContactWebAppSettings 'contactWebAppServiceSettingsUpdate.bicep' = {
+  name: '${webAppName}-updatingAppSettings'
+  scope: contactWebResourceGroup
+  params: {
+    webAppName: contactWebApplicationPlanAndSite.outputs.webAppFullName
+    defaultDBSecretURI: contactWebVault.outputs.identityDBConnectionSecretURI
+    managerDBSecretURI: contactWebVault.outputs.managerDBConnectionSecretURI
+  }
+}
