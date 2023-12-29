@@ -98,7 +98,7 @@ module contactWebVault 'keyVault.bicep' = {
     keyVaultName: keyVaultName
     sqlDatabaseName: sqlDatabaseName
     sqlServerAdminPassword: sqlServerAdminPassword
-    keyVaultUserManagedIdentityName: keyVaultUserManagedIdentityName
+    keyVaultUserManagedIdentityName: keyVaultUMIFullName
   }
 }
 
@@ -125,6 +125,6 @@ module orgAppConfiguration 'appConfigStore.bicep' = {
     managerDBConnectionStringKey: managerDBConnectionStringKey
     identityDbSecretURI: contactWebVault.outputs.identityDBConnectionSecretURI
     managerDbSecretURI: contactWebVault.outputs.managerDBConnectionSecretURI
-    keyVaultUserManagedIdentityName: keyVaultUMIFullName
+    keyVaultUserManagedIdentityName: contactWebVault.outputs.keyVaultUserManagedIdentityName
   }
 }

@@ -93,3 +93,4 @@ resource contactManagerDBConnectionSecret 'Microsoft.KeyVault/vaults/secrets@202
 output keyVaultName string = keyVault.name
 output identityDBConnectionSecretURI string = identityDBConnectionSecret.properties.secretUri
 output managerDBConnectionSecretURI string = contactManagerDBConnectionSecret.properties.secretUri
+output keyVaultUserManagedIdentityName string = keyVaultUser.name
