@@ -10,7 +10,6 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_APP_PACKAGE_PATH: '.' 
   # set this to the dotnet version to use
   DOTNET_VERSION: '6.0.x' 
   # Put your app name here
@@ -50,5 +49,5 @@ jobs:
         with:
           app-name: '${{ env.AZURE_WEB_APP_NAME }}'
           slot-name: '${{ env.AZURE_WEB_APP_SLOT }}'
-          package: ${{ env.APP_PACKAGE_PATH }}
+          package: ${{env.DOTNET_ROOT}}/myapp
           publish-profile: ${{ env.AZURE_PUBLISH_PROFILE_SECRET }}
