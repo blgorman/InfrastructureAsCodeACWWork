@@ -68,6 +68,7 @@ resource managerDBConnectionKeyValuePair 'Microsoft.AppConfiguration/configurati
 
 resource roleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   name: roleAssignmentId
+  scope: appConfig
   properties: {
     principalId: webApp.identity.principalId
     roleDefinitionId: appDataReaderRole.id
