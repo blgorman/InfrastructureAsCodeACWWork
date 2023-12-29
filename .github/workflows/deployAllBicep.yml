@@ -28,7 +28,7 @@ permissions:
 
 jobs:
   deploy-infrastructure:
-    name: Dev Deploy
+    name: Infrastructure Deployment
     runs-on: ubuntu-latest
     environment:
       name: 'dev'
@@ -57,6 +57,7 @@ jobs:
 
   build-and-deploy:
     runs-on: ubuntu-latest
+    name: Application Deployment
     needs: deploy-infrastructure
     environment:
       name: 'dev'
