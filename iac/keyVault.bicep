@@ -14,12 +14,12 @@ param sqlDatabaseName string
 @secure()
 param sqlServerAdminPassword string
 
+param developersGroupObjectId string
+param keyVaultUserManagedIdentityName string
+
 var vaultName = '${keyVaultName}${uniqueIdentifier}'
 var skuName = 'standard'
 var softDeleteRetentionInDays = 7
-
-param developersGroupObjectId string
-param keyVaultUserManagedIdentityName string
 
 resource webApp 'Microsoft.Web/sites@2023-01-01' existing = {
   name: webAppFullName
