@@ -14,6 +14,7 @@ param webAppName string
 param roleDefinitionName string
 
 var configName = '${appConfigStoreName}-${uniqueIdentifier}'
+var roleAssignmentId = guid('${webApp.name}', '${appDataReaderRole.name}','${appConfig.name}')
 
 resource appDataReaderRole 'Microsoft.Authorization/roleDefinitions@2022-05-01-preview' existing = {
   name: roleDefinitionName
@@ -66,7 +67,7 @@ resource managerDBConnectionKeyValuePair 'Microsoft.AppConfiguration/configurati
 }
 
 resource roleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  name: 'exampleRoleAssignment'
+  name: roleAssignmentId
   properties: {
     principalId: webApp.identity.principalId
     roleDefinitionId: appDataReaderRole.id
