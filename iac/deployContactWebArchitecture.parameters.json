@@ -52,6 +52,9 @@
         },
         "keyVaultName": {
             "value": "KV-ContactWeb"
+        },
+        "appConfigStoreName": {
+            "value": "orgAppConfig"
         }
     }
 }

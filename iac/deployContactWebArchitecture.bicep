@@ -27,6 +27,8 @@ param appInsightsConnectionStringKey string
 
 param keyVaultName string
 
+param appConfigStoreName string
+
 resource contactWebResourceGroup 'Microsoft.Resources/resourceGroups@2018-05-01' = {
   name: rgName
   location: location
@@ -104,5 +106,20 @@ module updateContactWebAppSettings 'contactWebAppServiceSettingsUpdate.bicep' = 
     managerDBSecretURI: contactWebVault.outputs.managerDBConnectionSecretURI
     identityDBConnectionStringKey: identityDBConnectionStringKey
     managerDBConnectionStringKey: managerDBConnectionStringKey
+  }
+}
+
+module orgAppConfiguration 'appConfigStore.bicep' = {
+  name: '${appConfigStoreName}-deployment'
+  scope: contactWebResourceGroup
+  params: {
+    location: contactWebResourceGroup.location
+    uniqueIdentifier: uniqueIdentifier
+    vaultFullName: contactWebVault.outputs.keyVaultName
+    appConfigStoreName: appConfigStoreName
+    identityDBConnectionStringKey: identityDBConnectionStringKey
+    managerDBConnectionStringKey: managerDBConnectionStringKey
+    identityDbSecretURI: contactWebVault.outputs.identityDBConnectionSecretURI
+    managerDbSecretURI: contactWebVault.outputs.managerDBConnectionSecretURI
   }
 }

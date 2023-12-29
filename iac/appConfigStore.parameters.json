@@ -1,0 +1,31 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "value": "eastus"
+        },
+        "uniqueIdentifier": {
+            "value": "20291231acw"
+        },
+        "appConfigStoreName": {
+            "value": "orgAppConfig"
+        },
+        "vaultFullName": {
+            "value": "passedinfrommain"
+        },
+        "identityDBConnectionStringKey": {
+            "value": "passedinfrommain"
+        },
+        "managerDBConnectionStringKey": {
+            "value": "passedinfrommain"
+        },
+        "identityDbSecretURI": {
+            "value": "passedinfrommain"
+        },
+        "managerDbSecretURI" : {
+            "value": "passedinfrommain"
+        }
+    }
+}
+
