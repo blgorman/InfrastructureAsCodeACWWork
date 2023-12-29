@@ -7,7 +7,7 @@ param managerDBConnectionStringKey string
 param identityDbSecretURI string
 param managerDbSecretURI string
 
-var configName = '${appConfigStoreName}-{uniqueIdentifier}'
+var configName = '${appConfigStoreName}-${uniqueIdentifier}'
 
 resource vault 'Microsoft.KeyVault/vaults@2022-07-01' existing = {
   name: vaultFullName
