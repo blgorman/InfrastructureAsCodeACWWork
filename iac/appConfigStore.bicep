@@ -71,9 +71,11 @@ resource roleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   properties: {
     roleDefinitionId: appDataReaderRole.id
     principalId: webApp.identity.principalId
-    principalType: 'ServicePrincipal'
+    principalType: 'User'
   }
 }
 
 output appConfigStoreName string = appConfig.name
 output appConfigStoreEndpoint string = appConfig.properties.endpoint
+output dataReaderRoleName string = appDataReaderRole.name
+output dataReaderRoleId string = appDataReaderRole.id
