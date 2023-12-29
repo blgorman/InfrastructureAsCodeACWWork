@@ -18,12 +18,19 @@ var vaultName = '${keyVaultName}${uniqueIdentifier}'
 var skuName = 'standard'
 var softDeleteRetentionInDays = 7
 
+param keyVaultUserManagedIdentityName string
+
 resource webApp 'Microsoft.Web/sites@2023-01-01' existing = {
   name: webAppFullName
 }
 
 resource databaseServer 'Microsoft.Sql/servers@2023-05-01-preview' existing = {
   name: databaseServerName
+}
+
+resource keyVaultUser 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' = {
+  name: keyVaultUserManagedIdentityName
+  location: location
 }
 
 resource keyVault 'Microsoft.KeyVault/vaults@2022-07-01' = {
@@ -44,6 +51,15 @@ resource keyVault 'Microsoft.KeyVault/vaults@2022-07-01' = {
       {
         tenantId: subscription().tenantId
         objectId: webApp.identity.principalId
+        permissions: {
+          keys: []
+          secrets: ['Get']
+          certificates: []
+        }
+      }
+      {
+        tenantId: subscription().tenantId
+        objectId: keyVaultUser.properties.principalId
         permissions: {
           keys: []
           secrets: ['Get']

@@ -26,6 +26,7 @@ param managerDBConnectionStringKey string
 param appInsightsConnectionStringKey string
 
 param keyVaultName string
+param keyVaultUserManagedIdentityName string
 
 @minLength(5)
 @maxLength(12)
@@ -96,6 +97,7 @@ module contactWebVault 'keyVault.bicep' = {
     keyVaultName: keyVaultName
     sqlDatabaseName: sqlDatabaseName
     sqlServerAdminPassword: sqlServerAdminPassword
+    keyVaultUserManagedIdentityName: keyVaultUserManagedIdentityName
   }
 }
 

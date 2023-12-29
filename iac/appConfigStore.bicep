@@ -9,8 +9,13 @@ param identityDBConnectionStringKey string
 param managerDBConnectionStringKey string 
 param identityDbSecretURI string
 param managerDbSecretURI string
+param keyVaultUserManagedIdentityName string
 
 var configName = '${appConfigStoreName}-${uniqueIdentifier}'
+
+resource keyVaultUser 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' existing = {
+  name: keyVaultUserManagedIdentityName
+}
 
 resource appConfig 'Microsoft.AppConfiguration/configurationStores@2023-03-01' = {
   name: configName
@@ -19,7 +24,10 @@ resource appConfig 'Microsoft.AppConfiguration/configurationStores@2023-03-01' =
     name: 'free'
   }
   identity: {
-    type: 'SystemAssigned'
+    type: 'UserAssigned'
+    userAssignedIdentities: {
+      '${keyVaultUser.id}': {}
+    }
   }
   properties: {
     encryption: {}
