@@ -6,7 +6,7 @@ name: Build and deploy ASP.Net Core app to Azure Web App - ContactWeb-20291231ac
 on:
   push:
     branches:
-      - main
+      - asdfasdf
   workflow_dispatch:
 
 jobs:
