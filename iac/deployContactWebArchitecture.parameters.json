@@ -9,7 +9,7 @@
             "value": "eastus"
         },
         "uniqueIdentifier": {
-            "value": "20291231acw"
+            "value": "20281231acw"
         },
         "sqlServerName": {
             "value": "ContactWebDBServer"
@@ -65,11 +65,11 @@
         "appDataReaderRoleDefinitionName": {
             "value": "App Configuration Data Reader"
         },
-        "appConfigurationEndpointKey": { 
-            "value": "AzureAppConfigConnection"
-        },
         "appDataReaderRoleId": {
             "value": "/providers/Microsoft.Authorization/roleDefinitions/516239f1-63e1-4d78-a4de-a74fb236a071"
+        },
+        "appConfigurationEndpointKey": { 
+            "value": "AzureAppConfigConnection"
         }
     }
 }

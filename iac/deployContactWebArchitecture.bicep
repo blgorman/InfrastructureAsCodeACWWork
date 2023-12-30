@@ -37,7 +37,6 @@ param appDataReaderRoleDefinitionName string
 param appDataReaderRoleId string
 param appConfigurationEndpointKey string
 
-
 resource contactWebResourceGroup 'Microsoft.Resources/resourceGroups@2018-05-01' = {
   name: rgName
   location: location
