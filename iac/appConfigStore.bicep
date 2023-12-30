@@ -20,7 +20,7 @@ resource appDataReaderRole 'Microsoft.Authorization/roleDefinitions@2022-05-01-p
   name: roleDefinitionName
 }
 
-var appDataReaderRoleId = '516239f1-63e1-4d78-a4de-a74fb236a071'
+var appDataReaderRoleId = '/providers/Microsoft.Authorization/roleDefinitions/516239f1-63e1-4d78-a4de-a74fb236a071'
 
 resource webApp 'Microsoft.Web/sites@2023-01-01' existing = {
   name: webAppName
