@@ -12,6 +12,7 @@ param managerDbSecretURI string
 param keyVaultUserManagedIdentityName string
 param webAppName string
 param roleDefinitionName string
+param appDataReaderRoleId string
 
 var configName = '${appConfigStoreName}-${uniqueIdentifier}'
 var roleAssignmentId = guid('${webApp.name}', '${appDataReaderRole.name}','${appConfig.name}')
@@ -19,8 +20,6 @@ var roleAssignmentId = guid('${webApp.name}', '${appDataReaderRole.name}','${app
 resource appDataReaderRole 'Microsoft.Authorization/roleDefinitions@2022-05-01-preview' existing = {
   name: roleDefinitionName
 }
-
-var appDataReaderRoleId = '/providers/Microsoft.Authorization/roleDefinitions/516239f1-63e1-4d78-a4de-a74fb236a071'
 
 resource webApp 'Microsoft.Web/sites@2023-01-01' existing = {
   name: webAppName

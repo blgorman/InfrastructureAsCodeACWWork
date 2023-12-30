@@ -35,6 +35,7 @@ var keyVaultUMIFullName = '${keyVaultName}-${keyVaultUserManagedIdentityName}'
 param appConfigStoreName string
 param appDataReaderRoleDefinitionName string
 param appConfigurationEndpointKey string
+param appDataReaderRoleId string
 
 resource contactWebResourceGroup 'Microsoft.Resources/resourceGroups@2018-05-01' = {
   name: rgName
@@ -132,6 +133,7 @@ module orgAppConfiguration 'appConfigStore.bicep' = {
     keyVaultUserManagedIdentityName: contactWebVault.outputs.keyVaultUserManagedIdentityName
     webAppName: contactWebApplicationPlanAndSite.outputs.webAppFullName
     roleDefinitionName: appDataReaderRoleDefinitionName
+    appDataReaderRoleId: appDataReaderRoleId
   }
 }
 
